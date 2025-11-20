@@ -37,22 +37,32 @@
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
       
       let player;
-      window.onYouTubeIFrameAPIReady = function() {
+      window.onYouTubeIframeAPIReady = function() {
         player = new YT.Player('player', {
           videoId: videoId,
           playerVars: {
             'playsinline': 1,
             'autoplay': 0,
+            'controls': 1,
             'rel': 0,
-            'modestbranding': 1
+            'modestbranding': 1,
+            'fs': 1,
+            'cc_load_policy': 0,
+            'iv_load_policy': 3,
+            'autohide': 0
           },
           events: {
+            'onReady': onPlayerReady,
             'onError': function(event) {
               console.error('YouTube Player Error:', event.data);
             }
           }
         });
       };
+      
+      function onPlayerReady(event) {
+        console.log('YouTube player ready');
+      }
     }
   </script>
 </body>
